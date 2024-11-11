@@ -1,0 +1,13 @@
+mlflow:
+  experiment_name: credit_card_fraud_detection
+  tracking_uri: mlruns
+model_params:
+  eval_metric: logloss
+  random_state: 42
+  use_label_encoder: false
+paths:
+  data: data/raw/creditcard.csv
+  model_artifacts: model_artifacts
+training:
+  random_state: 42
+  test_size: 0.3

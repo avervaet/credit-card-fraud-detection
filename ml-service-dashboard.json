@@ -1,0 +1,56 @@
+{
+    "annotations": {
+      "list": []
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(ml_request_total[1m])",
+            "legendFormat": "{{status}}"
+          }
+        ]
+      },
+      {
+        "title": "Response Time",
+        "type": "graph",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "rate(ml_request_latency_seconds_sum[1m]) / rate(ml_request_latency_seconds_count[1m])",
+            "legendFormat": "{{endpoint}}"
+          }
+        ]
+      },
+      {
+        "title": "Prediction Distribution",
+        "type": "gauge",
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "ml_prediction_class_total",
+            "legendFormat": "Class {{class}}"
+          }
+        ]
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 16,
+    "style": "dark",
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "ML Service Dashboard",
+    "version": 0
+  }
