@@ -7,7 +7,6 @@ import joblib
 import mlflow
 import mlflow.xgboost
 import pandas as pd
-import yaml
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import confusion_matrix, roc_auc_score
 from sklearn.model_selection import train_test_split
@@ -30,11 +29,6 @@ class CreditCardFraudModel:
         # Initialize MLflow
         mlflow.set_tracking_uri(self.config["mlflow"]["tracking_uri"])
         mlflow.set_experiment(self.config["mlflow"]["experiment_name"])
-
-    def _load_config(self, config_path):
-        """Load configuration from YAML file."""
-        with open(config_path) as f:
-            return yaml.safe_load(f)
 
     def setup_logging(self):
         """Set up logging configuration."""
@@ -108,12 +102,11 @@ class CreditCardFraudModel:
             }
 
             # Log metrics
+            self.logger.info(f"Model metrics: {metrics}")
             mlflow.log_metrics(metrics)
 
             # Log model
             mlflow.xgboost.log_model(model, "model")
-
-            self.logger.info(f"Model metrics: {metrics}")
 
             return model, metrics
 
